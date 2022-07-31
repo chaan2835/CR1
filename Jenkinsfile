@@ -16,11 +16,7 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
+        
         stage('upload artifact to nexus'){
             steps {
                 nexusArtifactUploader artifacts: 
