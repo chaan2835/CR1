@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
@@ -24,6 +19,26 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
+            }
+        }
+        stage('upload artifact to nexus'){
+            steps {
+                nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'my-app', 
+                            classifier: '', 
+                            file: 'target/my-app', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'b4b22ac4-cc33-444a-a50c-945f6eb4edc8',
+                    groupId: 'com.mycompany.app', 
+                    nexusUrl: '172.31.33.156', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http',
+                    repository: 'CR1',
+                    version: '1.0-SNAPSHOT'
             }
         }
     }
