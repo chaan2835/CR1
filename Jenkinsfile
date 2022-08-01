@@ -30,7 +30,7 @@ pipeline {
                    ],
                    credentialsId: 'b4b22ac4-cc33-444a-a50c-945f6eb4edc8',
                    groupId: 'com.mycompany.app',
-                   nexusUrl: '3.108.218.211',
+                   nexusUrl: '172.31.33.156',
                    nexusVersion: 'nexus3',
                    protocol: 'http', 
                    repository: 'CR1', 
